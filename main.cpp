@@ -85,6 +85,7 @@ int main(int argc, char* argv[])
     GearInfo gear;
     gear.resize(params.numTeeth);
 
+    
     for (boost::filesystem::directory_iterator dirIt(searchDirectory); dirIt != endIt; ++dirIt)
     {
         std::smatch matchResults;
@@ -93,6 +94,11 @@ int main(int argc, char* argv[])
         bool result = std::regex_match(filename, matchResults, filePattern, std::regex_constants::match_default);
         if (!result)
             continue;
+        char zoneStr = matchResults[1].str()[0];
+        int toothId = std::atoi(matchResults[2].str().c_str());
+        char side = matchResults[3].str()[0];            
+        
+        GearInfoImporter::import(filename, gear, toothId, zoneStr, side);
     }
 
     return 0;
