@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
         int toothId = std::atoi(matchResults[2].str().c_str());
         char side = matchResults[3].str()[0];            
         
-        GearInfoImporter::import(filename, gear, toothId, zoneStr, side);
+        GearInfoImporter::import(item.string(), gear, toothId, zoneStr, side);
     }
 
     return 0;

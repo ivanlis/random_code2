@@ -17,14 +17,12 @@ namespace gearplot
 
     struct ProfileInfo
     {
-        ProfileInfo(): rootDiameter(0.0), tipDiameter(0.0), lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
+        ProfileInfo(): lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
             totalProfileError(0.0), totalProfileNegTol(0.0), totalProfilePosTol(0.0),
             formError(0.0), formErrorNegTol(0.0), formErrorPosTol(0.0), 
             slopeError(0.0), slopeErrorNegTol(0.0), slopeErrorPosTol(0.0), 
-            pitchDev(0.0), cumulativePitchError(0.0), runoutComponent(0.0) { }
+            pitchDev(0.0), pitchError(0.0), cumulativePitchError(0.0), runoutComponent(0.0) { }
 
-        double rootDiameter;
-        double tipDiameter;
         double lineAX;
         double lineAY;
         double lineBX;
@@ -39,19 +37,19 @@ namespace gearplot
         double slopeErrorNegTol;
         double slopeErrorPosTol;
         double pitchDev;
+        double pitchError;
         double cumulativePitchError;
         double runoutComponent;
     };
 
     struct LeadInfo
     {
-        LeadInfo(): minHeight(0.0), maxHeight(0.0), lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
+        LeadInfo(): lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
             totalLeadError(0.0), totalLeadNegTol(0.0), totalLeadPosTol(0.0), 
             formError(0.0), formErrorNegTol(0.0), formErrorPosTol(0.0),
             helixSlopeError(0.0), helixSlopeNegTol(0.0), helixSlopePosTol(0.0),
-            pitchDev(0.0), cumulativePitchError(0.0), runoutComponent(0.0) { }
-        double minHeight;
-        double maxHeight;
+            pitchDev(0.0), runoutComponent(0.0) { }
+
         double lineAX;
         double lineAY;
         double lineBX;
@@ -66,12 +64,15 @@ namespace gearplot
         double helixSlopeNegTol;
         double helixSlopePosTol;
         double pitchDev;
-        double cumulativePitchError;
+        //double cumulativePitchError;
         double runoutComponent;       
     };
 
     struct ToothInfo
     {
+        ToothInfo(): totalProfileError(0.0), totalLeadError(0.0),
+            rootDiameter(0.0), tipDiameter(0.0), minHeight(0.0), maxHeight(0.0) { }
+
         ProfileInfo leftProfile;
         ProfileInfo rightProfile;
         LeadInfo leftLead;
@@ -79,6 +80,10 @@ namespace gearplot
 
         double totalProfileError;
         double totalLeadError;
+        double rootDiameter;
+        double tipDiameter;
+        double minHeight;
+        double maxHeight;
     };
 
     struct GearInfo
@@ -97,6 +102,11 @@ namespace gearplot
         //Profiles profiles;
         //Leads leads;
         Teeth teeth;
+
+        static const char SIDE_LEFT = 'L';
+        static const char SIDE_RIGHT = 'R';
+        static const char ZONE_PROFILE = 'P';
+        static const char ZONE_LEAD = 'L';
     };
 
     class GearInfoImporter
