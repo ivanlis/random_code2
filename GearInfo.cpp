@@ -34,6 +34,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     double num0 = 0.0, num1 = 0.0, num2 = 0.0, num3 = 0.0;
     // Line 2
     sscanf(line.c_str(), "%lf %lf %lf", &num0, &num1, &num2);
+    std::cout << "Line 2 numbers: " << num0 << " " << num1 << " " << num2 << std::endl;
     ToothInfo& toothToUpdate = gear.teeth[toothId];
     switch (zone)
     {
@@ -62,6 +63,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::getline(file, line);
     // Line 3
     sscanf(line.c_str(), "%lf %lf %lf %lf", &num0, &num1, &num2, &num3);
+    std::cout << "Line 3 numbers: " << num0 << " " << num1 << " " << num2 << " " << num3 << std::endl;
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
@@ -104,6 +106,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::getline(file, line);
     // Line 4
     sscanf(line.c_str(), "%lf %lf %lf", &num0, &num1, &num2);
+    std::cout << "Line 4 numbers: " << num0 << " " << num1 << " " << num2 << std::endl;
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
@@ -143,6 +146,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::getline(file, line);
     // Line 5
     sscanf(line.c_str(), "%lf %lf %lf", &num0, &num1, &num2);
+    std::cout << "Line 5 numbers: " << num0 << " " << num1 << " " << num2 << std::endl;
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
@@ -180,6 +184,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::getline(file, line);
     // Line 6
     sscanf(line.c_str(), "%lf %lf %lf", &num0, &num1, &num2);
+    std::cout << "Line 6 numbers: " << num0 << " " << num1 << " " << num2 << std::endl;
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
@@ -219,6 +224,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::getline(file, line);
     // Line 7
     sscanf(line.c_str(), "%lf %lf", &num0, &num1);
+    std::cout << "Line 7 numbers: " << num0 << " " << num1 << std::endl;
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
@@ -247,6 +253,19 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     //     break;
     default:
         break;
+    }
+
+    std::getline(file, line);
+    // Line 8
+    sscanf(line.c_str(), "%lf", &num0);
+    std::cout << "Line 8 number: " << num0 << std::endl;
+    
+    if (zone == GearInfo::ZONE_PROFILE)
+    {
+        if (side == GearInfo::SIDE_RIGHT)
+            toothToUpdate.rightProfile.runoutComponent = num0;
+        else if (side == GearInfo::SIDE_LEFT)
+            toothToUpdate.leftProfile.runoutComponent = num0;
     }
 
     file.close();

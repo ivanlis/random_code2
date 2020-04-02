@@ -48,7 +48,7 @@ namespace gearplot
             totalLeadError(0.0), totalLeadNegTol(0.0), totalLeadPosTol(0.0), 
             formError(0.0), formErrorNegTol(0.0), formErrorPosTol(0.0),
             helixSlopeError(0.0), helixSlopeNegTol(0.0), helixSlopePosTol(0.0),
-            pitchDev(0.0), runoutComponent(0.0) { }
+            pitchDev(0.0) { }
 
         double lineAX;
         double lineAY;
@@ -65,7 +65,7 @@ namespace gearplot
         double helixSlopePosTol;
         double pitchDev;
         //double cumulativePitchError;
-        double runoutComponent;       
+        //double runoutComponent;       
     };
 
     struct ToothInfo
