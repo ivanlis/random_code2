@@ -40,6 +40,8 @@ namespace gearplot
         double pitchError;
         double cumulativePitchError;
         double runoutComponent;
+        std::vector<double> deviationX;
+        std::vector<double> deviationY;
     };
 
     struct LeadInfo
@@ -65,7 +67,9 @@ namespace gearplot
         double helixSlopePosTol;
         double pitchDev;
         //double cumulativePitchError;
-        //double runoutComponent;       
+        //double runoutComponent; 
+        std::vector<double> deviationX;
+        std::vector<double> deviationY;      
     };
 
     struct ToothInfo

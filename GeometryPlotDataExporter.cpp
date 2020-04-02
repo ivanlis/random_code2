@@ -1,4 +1,5 @@
 #include "GeometryPlotDataExporter.h"
+#include <iostream>
 #include <boost/property_tree/json_parser.hpp>
 
 using namespace gearplot;
@@ -44,8 +45,6 @@ void GeometryPlotDataExporter::buildPropertyTree(pt::ptree& tree, const GearInfo
 
         tree.add_child("teeth." + std::to_string(i), node);
     }
-
-    //TODO: implement
 }
 
 void GeometryPlotDataExporter::buildProfileNode(pt::ptree& node, const ProfileInfo& profile)
@@ -67,6 +66,10 @@ void GeometryPlotDataExporter::buildProfileNode(pt::ptree& node, const ProfileIn
     node.put("gearProfileAttr.pitchError", profile.pitchError);
     node.put("gearProfileAttr.cumulativePitchError", profile.cumulativePitchError);
     node.put("gearProfileAttr.runoutComponent", profile.runoutComponent);
+
+    pt::ptree deviationNode;
+    buildDeviationNode(deviationNode, profile.deviationX, profile.deviationY);
+    node.add_child("gearProfileDeviations", deviationNode);
 }
 
 void GeometryPlotDataExporter::buildLeadNode(pt::ptree& node, const LeadInfo& lead)
@@ -85,4 +88,35 @@ void GeometryPlotDataExporter::buildLeadNode(pt::ptree& node, const LeadInfo& le
     node.put("gearLeadAttr.helixSlopeNegTol", lead.helixSlopeNegTol);
     node.put("gearLeadAttr.helixSlopePosTol", lead.helixSlopePosTol);
     node.put("gearLeadAttr.pitchDev", lead.pitchDev);
+
+    pt::ptree deviationNode;
+    buildDeviationNode(deviationNode, lead.deviationX, lead.deviationY);
+    node.add_child("gearLeadDeviations", deviationNode);
+}
+
+void GeometryPlotDataExporter::buildDeviationNode(pt::ptree& node, const std::vector<double>& x, const std::vector<double>& y)
+{
+    if (x.empty() || y.empty())
+        return;
+
+    pt::ptree devArrayNode;
+    for (auto cit = x.begin(); cit != x.end(); ++cit)
+    {
+        pt::ptree child;
+        std::cout << "Putting x child with value: " << *cit << std::endl;
+        //child.put(std::to_string(*cit), "");
+        child.put("", *cit);
+        devArrayNode.push_back(std::make_pair("", child));
+    }
+    node.add_child("x", devArrayNode);
+    devArrayNode.clear();
+    for (auto cit = y.begin(); cit != y.end(); ++cit)
+    {
+        pt::ptree child;
+        std::cout << "Putting y child with value: " << *cit << std::endl;
+        //child.put(std::to_string(*cit), "");
+        child.put("", *cit);
+        devArrayNode.push_back(std::make_pair("", child));
+    }
+    node.add_child("y", devArrayNode);
 }

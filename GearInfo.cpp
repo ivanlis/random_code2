@@ -271,6 +271,50 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
             toothToUpdate.leftProfile.runoutComponent = num0;
     }
 
+    // Line 9 on: deviations
+    toothToUpdate.rightProfile.deviationX.clear();
+    toothToUpdate.rightProfile.deviationY.clear();
+    toothToUpdate.leftProfile.deviationX.clear();
+    toothToUpdate.leftProfile.deviationY.clear();
+    toothToUpdate.rightLead.deviationX.clear();
+    toothToUpdate.rightLead.deviationY.clear();
+    toothToUpdate.leftLead.deviationX.clear();
+    toothToUpdate.leftLead.deviationY.clear();
+    while (std::getline(file, line))
+    {
+        sscanf(line.c_str(), "%lf %lf", &num0, &num1);
+        std::cout << "Line 9 numbers: " << num0 << " " << num1 << std::endl;
+        switch (zone)
+        {
+        case GearInfo::ZONE_PROFILE:
+            if (side == GearInfo::SIDE_RIGHT)
+            {
+                toothToUpdate.rightProfile.deviationX.push_back(num0);
+                toothToUpdate.rightProfile.deviationY.push_back(num1);
+            }
+            else if (side == GearInfo::SIDE_LEFT)
+            {
+                toothToUpdate.leftProfile.deviationX.push_back(num0);
+                toothToUpdate.leftProfile.deviationY.push_back(num1);
+            }
+            break;
+        case GearInfo::ZONE_LEAD:
+            if (side == GearInfo::SIDE_RIGHT)
+            {
+                toothToUpdate.rightLead.deviationX.push_back(num0);
+                toothToUpdate.rightLead.deviationY.push_back(num1);
+            }
+            else if (side == GearInfo::SIDE_LEFT)
+            {
+                toothToUpdate.leftLead.deviationX.push_back(num0);
+                toothToUpdate.leftLead.deviationY.push_back(num1);
+            }           
+            break;
+        default:
+            break;
+        }
+    }
+
     file.close();
     
     //TODO: implement

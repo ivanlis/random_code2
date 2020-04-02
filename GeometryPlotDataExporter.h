@@ -17,6 +17,7 @@ namespace gearplot
         static void buildPropertyTree(pt::ptree& tree, const GearInfo& geometry);
         static void buildProfileNode(pt::ptree& node, const ProfileInfo& profile);
         static void buildLeadNode(pt::ptree& node, const LeadInfo& lead);
+        static void buildDeviationNode(pt::ptree& node, const std::vector<double>& x, const std::vector<double>& y);
     };
 }
 
