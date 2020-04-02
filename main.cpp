@@ -7,6 +7,7 @@
 #include <regex>
 
 #include "GearInfo.h"
+#include "GeometryPlotDataExporter.h"
 
 using namespace gearplot;
 
@@ -100,6 +101,9 @@ int main(int argc, char* argv[])
         
         GearInfoImporter::import(item.string(), gear, toothId, zoneStr, side);
     }
+
+
+    GeometryPlotDataExporter::exportToJson("test.json", gear);
 
     return 0;
 }

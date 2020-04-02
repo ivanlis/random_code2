@@ -30,6 +30,9 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::cout << "Line 1 read: partId = " << partId << ", geometryId = " << geometryId << ", readZone = " << readZone
         << ", readToothId = " << readToothId << ", readSide = " << readSide << "\n";
 
+    gear.geometryId = geometryId;
+    gear.partId = partId;
+
     std::getline(file, line);
     double num0 = 0.0, num1 = 0.0, num2 = 0.0, num3 = 0.0;
     // Line 2
