@@ -18,28 +18,28 @@ namespace gearplot
     struct ProfileInfo
     {
         ProfileInfo(): lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
-            totalProfileError(0.0), totalProfileNegTol(0.0), totalProfilePosTol(0.0),
-            formError(0.0), formErrorNegTol(0.0), formErrorPosTol(0.0), 
+            totalProfileError(0.0), //totalProfileNegTol(0.0), totalProfilePosTol(0.0),
+            formError(0.0), //formErrorNegTol(0.0), formErrorPosTol(0.0), 
             slopeError(0.0), slopeErrorNegTol(0.0), slopeErrorPosTol(0.0), 
-            pitchDev(0.0), pitchError(0.0), cumulativePitchError(0.0), runoutComponent(0.0) { }
+            pitchDev(0.0), pitchError(0.0), cumulativePitchError(0.0) { }
 
         double lineAX;
         double lineAY;
         double lineBX;
         double lineBY;
         double totalProfileError;
-        double totalProfileNegTol;
-        double totalProfilePosTol;
+        // double totalProfileNegTol;
+        // double totalProfilePosTol;
         double formError;
-        double formErrorNegTol;
-        double formErrorPosTol;
+        //double formErrorNegTol;
+        //double formErrorPosTol;
         double slopeError;
         double slopeErrorNegTol;
         double slopeErrorPosTol;
         double pitchDev;
         double pitchError;
         double cumulativePitchError;
-        double runoutComponent;
+        //double runoutComponent;
         std::vector<double> deviationX;
         std::vector<double> deviationY;
     };
@@ -47,9 +47,9 @@ namespace gearplot
     struct LeadInfo
     {
         LeadInfo(): lineAX(0.0), lineAY(0.0), lineBX(0.0), lineBY(0.0),
-            totalLeadError(0.0), totalLeadNegTol(0.0), totalLeadPosTol(0.0), 
-            formError(0.0), formErrorNegTol(0.0), formErrorPosTol(0.0),
-            helixSlopeError(0.0), helixSlopeNegTol(0.0), helixSlopePosTol(0.0),
+            totalLeadError(0.0), //totalLeadNegTol(0.0), totalLeadPosTol(0.0), 
+            formError(0.0), //formErrorNegTol(0.0), formErrorPosTol(0.0),
+            helixSlopeError(0.0), //helixSlopeNegTol(0.0), helixSlopePosTol(0.0),
             pitchDev(0.0) { }
 
         double lineAX;
@@ -57,14 +57,14 @@ namespace gearplot
         double lineBX;
         double lineBY;
         double totalLeadError;
-        double totalLeadNegTol;
-        double totalLeadPosTol;
+        // double totalLeadNegTol;
+        // double totalLeadPosTol;
         double formError;
-        double formErrorNegTol;
-        double formErrorPosTol;
+        //double formErrorNegTol;
+        //double formErrorPosTol;
         double helixSlopeError;
-        double helixSlopeNegTol;
-        double helixSlopePosTol;
+        // double helixSlopeNegTol;
+        // double helixSlopePosTol;
         double pitchDev;
         //double cumulativePitchError;
         //double runoutComponent; 
@@ -74,20 +74,23 @@ namespace gearplot
 
     struct ToothInfo
     {
-        ToothInfo(): totalProfileError(0.0), totalLeadError(0.0),
-            rootDiameter(0.0), tipDiameter(0.0), minHeight(0.0), maxHeight(0.0) { }
+        ToothInfo(): //totalProfileError(0.0), totalLeadError(0.0),
+            //rootDiameter(0.0), tipDiameter(0.0), minHeight(0.0), maxHeight(0.0),
+            runoutComponent(0.0) { }
 
         ProfileInfo leftProfile;
         ProfileInfo rightProfile;
         LeadInfo leftLead;
         LeadInfo rightLead;
 
-        double totalProfileError;
-        double totalLeadError;
-        double rootDiameter;
-        double tipDiameter;
-        double minHeight;
-        double maxHeight;
+        // double totalProfileError;
+        // double totalLeadError;
+        // double rootDiameter;
+        // double tipDiameter;
+        // double minHeight;
+        // double maxHeight;
+
+        double runoutComponent;
     };
 
     struct GearInfo
@@ -96,15 +99,42 @@ namespace gearplot
         //typedef std::vector<LeadInfo> Leads;
         typedef std::vector<ToothInfo> Teeth;
 
-        GearInfo(): partId(-1), geometryId(-1) { }
+        GearInfo(): partId(-1), geometryId(-1), 
+            totalProfileError(0.0), totalLeadError(0.0), rootDiameter(0.0),
+            tipDiameter(0.0), minHeight(0.0), maxHeight(0.0),
+            totalProfileNegTol(0.0), totalProfilePosTol(0.0), 
+            totalLeadNegTol(0.0), totalLeadPosTol(0.0),
+            profileFormNegTol(0.0), profileFormPosTol(0.0),
+            leadFormNegTol(0.0), leadFormPosTol(0.0),
+            profileSlopeNegTol(0.0), profileSlopePosTol(0.0),
+            helixSlopeNegTol(0.0), helixSlopePosTol(0.0)
+            { }
 
         void resize(int numTeeth);
 
         int partId;
         int geometryId;
 
-        //Profiles profiles;
-        //Leads leads;
+        double totalProfileError;
+        double totalLeadError;
+        double rootDiameter;
+        double tipDiameter;
+        double minHeight;
+        double maxHeight;
+
+        double totalProfileNegTol;
+        double totalProfilePosTol;
+        double totalLeadNegTol;
+        double totalLeadPosTol;
+        double profileFormNegTol;
+        double profileFormPosTol;
+        double leadFormNegTol;
+        double leadFormPosTol;
+        double profileSlopeNegTol;
+        double profileSlopePosTol;
+        double helixSlopeNegTol;
+        double helixSlopePosTol;       
+
         Teeth teeth;
 
         static const char SIDE_LEFT = 'L';

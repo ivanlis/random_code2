@@ -39,25 +39,18 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     sscanf(line.c_str(), "%lf %lf %lf", &num0, &num1, &num2);
     std::cout << "Line 2 numbers: " << num0 << " " << num1 << " " << num2 << std::endl;
     ToothInfo& toothToUpdate = gear.teeth[toothId];
+    
     switch (zone)
     {
     case GearInfo::ZONE_PROFILE:
-        toothToUpdate.totalProfileError = num0;
-        toothToUpdate.rootDiameter = num1;
-        toothToUpdate.tipDiameter = num2;
-        // if (side == GearInfo::SIDE_RIGHT)
-        // {
-        //     toothToUpdate.
-        // }
-        // else if (side == GearInfo::SIDE_LEFT)
-        // {
-
-        // }
+        gear.totalProfileError = num0;
+        gear.rootDiameter = num1;
+        gear.tipDiameter = num2;
         break;
     case GearInfo::ZONE_LEAD:
-        toothToUpdate.totalLeadError = num0;
-        toothToUpdate.minHeight = num1;
-        toothToUpdate.maxHeight = num2;
+        gear.totalLeadError = num0;
+        gear.minHeight = num1;
+        gear.maxHeight = num2;
         break;
     default:
         break;
@@ -114,32 +107,22 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     {
     case GearInfo::ZONE_PROFILE:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightProfile.totalProfileError = num0;
-            toothToUpdate.rightProfile.totalProfileNegTol = num1;
-            toothToUpdate.rightProfile.totalProfilePosTol = num2;
-        }
         else
-        {
             toothToUpdate.leftProfile.totalProfileError = num0;
-            toothToUpdate.leftProfile.totalProfileNegTol = num1;
-            toothToUpdate.leftProfile.totalProfilePosTol = num2;
-        }
+
+        gear.totalProfileNegTol = num1;
+        gear.totalProfilePosTol = num2;
         
         break;
     case GearInfo::ZONE_LEAD:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightLead.totalLeadError = num0;
-            toothToUpdate.rightLead.totalLeadNegTol = num1;
-            toothToUpdate.rightLead.totalLeadPosTol = num2;
-        }
         else
-        {
             toothToUpdate.leftLead.totalLeadError = num0;
-            toothToUpdate.leftLead.totalLeadNegTol = num1;
-            toothToUpdate.leftLead.totalLeadPosTol = num2;
-        }
+ 
+        gear.totalLeadNegTol = num1;
+        gear.totalLeadPosTol = num2;
         
         break;
     default:
@@ -154,31 +137,23 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     {
     case GearInfo::ZONE_PROFILE:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightProfile.formError = num0;
-            toothToUpdate.rightProfile.formErrorNegTol = num1;
-            toothToUpdate.rightProfile.formErrorPosTol = num2;
-        }
         else if (side == GearInfo::SIDE_LEFT)
-        {
             toothToUpdate.leftProfile.formError = num0;
-            toothToUpdate.leftProfile.formErrorNegTol = num1;
-            toothToUpdate.leftProfile.formErrorPosTol = num2;
-        }
+
+        gear.profileFormNegTol = num1;
+        gear.profileFormPosTol = num2;
+
         break;
     case GearInfo::ZONE_LEAD:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightLead.formError = num0;
-            toothToUpdate.rightLead.formErrorNegTol = num1;
-            toothToUpdate.rightLead.formErrorPosTol = num2;
-        }
         else if (side == GearInfo::SIDE_LEFT)
-        {
             toothToUpdate.leftLead.formError = num0;
-            toothToUpdate.leftLead.formErrorNegTol = num1;
-            toothToUpdate.leftLead.formErrorPosTol = num2;
-        }
+
+        gear.leadFormNegTol = num1;
+        gear.leadFormPosTol = num2;
+
         break;
     default:
         break;
@@ -192,32 +167,22 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     {
     case GearInfo::ZONE_PROFILE:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightProfile.slopeError = num0;
-            toothToUpdate.rightProfile.slopeErrorNegTol = num1;
-            toothToUpdate.rightProfile.slopeErrorPosTol = num2;
-        }
         else if (side == GearInfo::SIDE_LEFT)
-        {
             toothToUpdate.leftProfile.slopeError = num0;
-            toothToUpdate.leftProfile.slopeErrorNegTol = num1;
-            toothToUpdate.leftProfile.slopeErrorPosTol = num2;
-        }
+
+        gear.profileSlopeNegTol = num1;
+        gear.profileSlopePosTol = num2;
         
         break;
     case GearInfo::ZONE_LEAD:
         if (side == GearInfo::SIDE_RIGHT)
-        {
             toothToUpdate.rightLead.helixSlopeError = num0;
-            toothToUpdate.rightLead.helixSlopeNegTol = num1;
-            toothToUpdate.rightLead.helixSlopePosTol = num2;
-        }
         else if (side == GearInfo::SIDE_LEFT)
-        {
             toothToUpdate.leftLead.helixSlopeError = num0;
-            toothToUpdate.leftLead.helixSlopeNegTol = num1;
-            toothToUpdate.leftLead.helixSlopePosTol = num2;
-        }
+
+        gear.helixSlopeNegTol = num1;
+        gear.helixSlopePosTol = num2;
 
         break;
     default:
@@ -243,17 +208,7 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
         }
 
         break;
-    // case GearInfo::ZONE_LEAD:
-    //     if (side == GearInfo::SIDE_RIGHT)
-    //     {
-    //         toothToUpdate.rightLead
-    //     }
-    //     else if (side == GearInfo::SIDE_LEFT)
-    //     {
 
-    //     }
-        
-    //     break;
     default:
         break;
     }
@@ -264,22 +219,9 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
     std::cout << "Line 8 number: " << num0 << std::endl;
     
     if (zone == GearInfo::ZONE_PROFILE)
-    {
-        if (side == GearInfo::SIDE_RIGHT)
-            toothToUpdate.rightProfile.runoutComponent = num0;
-        else if (side == GearInfo::SIDE_LEFT)
-            toothToUpdate.leftProfile.runoutComponent = num0;
-    }
+        toothToUpdate.runoutComponent = num0;
 
     // Line 9 on: deviations
-    toothToUpdate.rightProfile.deviationX.clear();
-    toothToUpdate.rightProfile.deviationY.clear();
-    toothToUpdate.leftProfile.deviationX.clear();
-    toothToUpdate.leftProfile.deviationY.clear();
-    toothToUpdate.rightLead.deviationX.clear();
-    toothToUpdate.rightLead.deviationY.clear();
-    toothToUpdate.leftLead.deviationX.clear();
-    toothToUpdate.leftLead.deviationY.clear();
     while (std::getline(file, line))
     {
         sscanf(line.c_str(), "%lf %lf", &num0, &num1);
@@ -289,11 +231,15 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
         case GearInfo::ZONE_PROFILE:
             if (side == GearInfo::SIDE_RIGHT)
             {
+                //toothToUpdate.rightProfile.deviationX.clear();
+                //toothToUpdate.rightProfile.deviationY.clear();
                 toothToUpdate.rightProfile.deviationX.push_back(num0);
                 toothToUpdate.rightProfile.deviationY.push_back(num1);
             }
             else if (side == GearInfo::SIDE_LEFT)
             {
+                //toothToUpdate.leftProfile.deviationX.clear();
+                //toothToUpdate.leftProfile.deviationY.clear();
                 toothToUpdate.leftProfile.deviationX.push_back(num0);
                 toothToUpdate.leftProfile.deviationY.push_back(num1);
             }
@@ -301,11 +247,15 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
         case GearInfo::ZONE_LEAD:
             if (side == GearInfo::SIDE_RIGHT)
             {
+                //toothToUpdate.rightLead.deviationX.clear();
+                //toothToUpdate.rightLead.deviationY.clear();
                 toothToUpdate.rightLead.deviationX.push_back(num0);
                 toothToUpdate.rightLead.deviationY.push_back(num1);
             }
             else if (side == GearInfo::SIDE_LEFT)
             {
+                //toothToUpdate.leftLead.deviationX.clear();
+                //toothToUpdate.leftLead.deviationY.clear();
                 toothToUpdate.leftLead.deviationX.push_back(num0);
                 toothToUpdate.leftLead.deviationY.push_back(num1);
             }           
@@ -314,6 +264,15 @@ void GearInfoImporter::import(const std::string& filename, GearInfo& gear, int t
             break;
         }
     }
+
+    std::cout << "Toot " << toothId << " right profile: " << toothToUpdate.rightProfile.deviationX.size()
+        << ", " << toothToUpdate.rightProfile.deviationY.size() << ", "
+        << " left profile: " << toothToUpdate.leftProfile.deviationX.size()
+        << ", " << toothToUpdate.leftProfile.deviationY.size() << ", "
+        << " right lead: " << toothToUpdate.rightLead.deviationX.size()
+        << ", " << toothToUpdate.rightLead.deviationY.size() << ", "
+        << " left lead: " << toothToUpdate.leftLead.deviationX.size()
+        << ", " << toothToUpdate.leftLead.deviationY.size() << std::endl;
 
     file.close();
     
